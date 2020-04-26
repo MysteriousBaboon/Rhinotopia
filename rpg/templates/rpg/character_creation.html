@@ -1,12 +1,13 @@
-<form>
-    <label> Name </label><br>
-    <input type ="text">
-    <br>
-    <br>
-    <label> Description </label><br>
-    <input type ="text"><br>
-    <input type="submit">
+{% extends 'rpg/_base.html' %}
 
-
-
+{% block content %}
+    <form>
+        <label> Name </label><br>
+        <input type="text">
+        <br>
+        <br>
+        <label> Description </label><br>
+        <input type="text"><br>
+        <input type="submit">
     </form>
+{% endblock %}

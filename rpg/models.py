@@ -1,7 +1,6 @@
 from django.db import models
 
 
-# Create your models here.
 class Place(models.Model):
     place_name = models.CharField(max_length=200)
     place_description = models.CharField(max_length=600)

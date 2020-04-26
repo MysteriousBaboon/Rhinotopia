@@ -5,9 +5,8 @@ from . import views
 app_name = 'rpg'
 urlpatterns = [
     path('', views.index, name='index'),
-    path('character_creation', views.character_creation, name='character_creation'),
-    path('Place', views.place_creation, name='place_creation'),
-    path('<place_name>', views.detail_place, name='detail_place'),
-    path('<character_name>', views.detail_character, name='character'),
-
+    path('character/create/', views.character_creation, name='character_creation'),
+    path('character/<int:character_id>/', views.character_detail, name='character_detail'),
+    path('place/create/', views.place_creation, name='place_creation'),
+    path('place/<int:place_id>/', views.place_detail, name='place_detail'),
 ]

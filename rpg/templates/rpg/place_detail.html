@@ -1,0 +1,8 @@
+{% extends 'rpg/_base.html' %}
+
+{% block title %}{{ place.place_name }}{% endblock %}
+
+{% block content %}
+    <h1>{{ place.place_name }}</h1>
+    <p>{{ place.place_description }}</p>
+{% endblock %}
