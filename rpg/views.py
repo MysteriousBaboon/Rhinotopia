@@ -6,7 +6,7 @@ from .models import Place
 
 
 def index(request):
-    latest_place_list = Place.objects.order_by('place_name')[:5]
+    latest_place_list = Place.objects.order_by('name')[:5]
     context = {
         'latest_place_list': latest_place_list,
     }
@@ -17,8 +17,8 @@ def character_creation(request):
     return render(request, 'rpg/character_creation.html')
 
 
-def character_detail(request, character_name):
-    return HttpResponse("You're are %s." % character_name)
+def character_detail(request, name):
+    return HttpResponse("You're are %s." % name)
 
 
 def place_creation(request):

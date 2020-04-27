@@ -11,7 +11,7 @@
         <ul>
             {% for place in latest_place_list %}
                 <li>
-                    <a href="{% url 'rpg:place_detail' place.id %}">{{ place.place_name }}</a>
+                    <a href="{% url 'rpg:place_detail' place.id %}">{{ place.name }}</a>
                 </li>
             {% endfor %}
         </ul>
