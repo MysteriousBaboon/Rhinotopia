@@ -1,30 +1,47 @@
-from django.shortcuts import get_object_or_404, render
-from django.http import HttpResponse
-from django.http import Http404
+from django.shortcuts import get_object_or_404, render, redirect, reverse
+from django.http import HttpResponse, HttpResponseRedirect
 
-from .models import Place
+from .forms import CharacterForm
+from .models import  Mission, Character
+
+from . import function
 
 
 def index(request):
-    latest_place_list = Place.objects.order_by('name')[:5]
+    all_missions = Mission.objects.all()
+    all_characters = Character.objects.all()
     context = {
-        'latest_place_list': latest_place_list,
+        'all_missions': all_missions,
+        'all_characters': all_characters,
     }
     return render(request, 'rpg/index.html', context)
 
 
 def character_creation(request):
-    return render(request, 'rpg/character_creation.html')
+
+    form = CharacterForm()
+    if request.method == 'POST':
+        form = CharacterForm(request.POST)
+        if form.is_valid():
+            post = form
+            post.save()
+            return redirect('rpg:index')
+
+    return render(request, 'rpg/character_creation.html', {'form': form})
 
 
-def character_detail(request, name):
-    return HttpResponse("You're are %s." % name)
+def character_detail(request, character_id):
+    character = get_object_or_404(Character, id=character_id)
+    return render(request, 'rpg/character_detail.html', {'character': character})
 
 
-def place_creation(request):
-    return render(request, 'rpg/place_creation.html')
+def mission_detail(request, mission_id):
+    mission = get_object_or_404(Mission, id=mission_id)
 
+    if request.method == 'POST':
+        if function.calculating_sucess(mission.sucess):
+            return render(request, 'rpg/index.html')
+        else:
+            return redirect('rpg:index')
 
-def place_detail(request, place_id):
-    place = get_object_or_404(Place, id=place_id)
-    return render(request, 'rpg/place_detail.html', {'place': place})
+    return render(request, 'rpg/mission_detail.html', {'mission': mission})

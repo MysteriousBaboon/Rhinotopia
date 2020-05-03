@@ -1,13 +1,9 @@
 {% extends 'rpg/_base.html' %}
 
 {% block content %}
-    <form>
-        <label> Name </label><br>
-        <input type="text">
-        <br>
-        <br>
-        <label> Description </label><br>
-        <input type="text"><br>
-        <input type="submit">
-    </form>
+<form action="{% url 'rpg:character_creation' %}" method="post">
+    {% csrf_token %}
+    {{ form }}
+    <input type="submit" value="Submit">
+</form>
 {% endblock %}

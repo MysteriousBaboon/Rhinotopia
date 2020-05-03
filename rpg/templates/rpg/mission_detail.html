@@ -1,0 +1,18 @@
+{% extends 'rpg/_base.html' %}
+
+{% block title %}{{ mission.mission_name }}{% endblock %}
+
+{% block content %}
+
+    <h1>{{ mission.name }}</h1>
+    <p>{{ mission.description }}
+    <p>{{ mission.duration }}</p>
+    <p>{{ mission.sucess }}</p>
+    <form action="" method="post">
+            {% csrf_token %}
+
+            <button type="submit">Start the Quest</button>
+    </form>
+
+
+{% endblock %}

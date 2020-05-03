@@ -1,7 +1,7 @@
 from django.db import models
 
 
-class Place(models.Model):
+class Character(models.Model):
     name = models.CharField(max_length=200)
     description = models.TextField()
 
@@ -9,8 +9,12 @@ class Place(models.Model):
         return self.name
 
 
-class Character(models.Model):
+class Mission(models.Model):
     name = models.CharField(max_length=200)
+    description = models.TextField()
+    duration = models.DurationField()
+    sucess = models.SmallIntegerField()
+    isActive = models.BooleanField()
 
-    def __str__(self):
-        return self.name
+    #class Difficulty(models.TextChoices):
+
