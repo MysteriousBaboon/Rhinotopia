@@ -6,13 +6,20 @@
 
     <h1>{{ mission.name }}</h1>
     <p>{{ mission.description }}
-    <p>{{ mission.duration }}</p>
-    <p>{{ mission.sucess }}</p>
-    <form action="" method="post">
+    <br>
+    <p>Duration : {{ mission.duration }}</p>
+    <p>Difficulty : {{mission.success_Goal}}</p>
+    <p>Experience Reward : {{mission.xp}}</p>
+        <form method="post">
             {% csrf_token %}
+            <option disabled="true">Choose a Character</option>
+            <select name="characters">
+            {% for character in characters %}<option value="{{character.id}}"> {{character.name}}</option>
 
-            <button type="submit">Start the Quest</button>
-    </form>
+            {% endfor %}
+            </select>
+            <input type="submit" value="Start the Quest"></input>
+        </form>
 
 
 {% endblock %}

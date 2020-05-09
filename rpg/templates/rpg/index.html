@@ -1,20 +1,36 @@
 {% extends 'rpg/_base.html' %}
 
-{% block title %}Bienvenue{% endblock %}
+{% block title %}{% endblock %}
 
 {% block content %}
+
 <h1>Create</h1>
 <a href="{% url 'rpg:character_creation' %}">Character Creation</a>
+<h1>Characters</h1>
 
-<h1>Character</h1>
 {% if all_characters %}
 <ul>
+
+    <h2> In Mission </h2>
     {% for character in all_characters %}
+    {% if character.isOccupied%}
     <li>
         <a href="{% url 'rpg:character_detail' character.id %}">{{ character.name }}</a>
     </li>
+    {% endif %}
+    {% endfor %}
+
+    <h2> Available</h2>
+    {% for character in all_characters %}
+    {% if character.isOccupied == False %}
+    <li>
+        <a href="{% url 'rpg:character_detail' character.id %}">{{ character.name }}</a>
+    </li>
+    {% endif %}
+
     {% endfor %}
 </ul>
+
 {% else %}
 <p>No character created.</p>
 {% endif %}

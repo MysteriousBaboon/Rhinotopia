@@ -1,9 +1,11 @@
 from django import forms
 
-from .models import  Character
+from .models import Character
+
 
 class CharacterForm(forms.ModelForm):
     class Meta:
         model = Character
-        fields = ('name', 'description',)
+        fields = ('name', 'description', 'specie', 'sex')
+
 

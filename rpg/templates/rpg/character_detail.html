@@ -4,5 +4,31 @@
 
 {% block content %}
     <h1>{{ character.name }}</h1>
-    <p>{{ character.description }}</p>
+    <p>{{character.sex}}</p>
+<br>
+    <h2>  Description </h2>
+            <p>{{ character.description }}</p>
+<h2>Race</h2>
+    <p>Species : {{character.specie}}</p>
+    <p> Race : {{character.race}}</p>
+
+
+
+    <h2> Stats</h2>
+
+    <p> Level {{character.level}}</p>
+    <p> Experience : {{ character.experience}} / {{character.experience_needed}} XP</p>
+    <p> Strength : {{character.strength}} / Intelligence : {{character.intelligence}} / Agility : {{character.agility}}</p>
+    <p> Point available: {{point_available}} </p>
+
+{% if point_available > 0  %}
+<form action="" method="post">
+        {% csrf_token %}
+<button type="submit" name="strength" value="True">Strength</button>
+<button type="submit" name="intelligence" value="True">Intelligence</button>
+<button type="submit" name="agility" value="True">Agility</button>
+
+</form>
+{% endif %}
+
 {% endblock %}
