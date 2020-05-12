@@ -25,7 +25,7 @@ SECRET_KEY = 'k(^f=auybtvyvz3t695wbq2i=^ae0#c^oxz+8^usgsq8qb04pz'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['rhinotopia.herokuapp.com']
 
 
 # Application definition
