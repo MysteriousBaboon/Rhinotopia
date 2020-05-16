@@ -1,0 +1,16 @@
+{% extends 'rpg/_base.html' %}
+
+{% block title %}{{ mission.mission_name }}{% endblock %}
+
+{% block content %}
+  <h2>LOG IN</h2>
+  <form method="post">
+      {% csrf_token %}
+
+      <input type="text" name="username"><br>
+      <input type="password" name="password"><br>
+
+    <button type="submit">Log in</button>
+  </form>
+
+{% endblock %}

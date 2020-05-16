@@ -9,6 +9,22 @@
     <link rel="stylesheet" type="text/css" href="{% static 'rpg/css/style.css' %}">
 </head>
 <body>
+
+{% if not log_status %}
+<p>Pas co</p>
+<a href="{% url 'rpg:login_view' %}">Log in</a>
+<a href="{% url 'rpg:signup' %}">New Account</a>
+
+{% else %}
+<p>{{request.user}}</p>
+<a href="{% url 'rpg:logout_view' %}">Log out</a>
+
+{% endif %}
     {% block content %}{% endblock %}
 </body>
 </html>
+
+
+
+
+

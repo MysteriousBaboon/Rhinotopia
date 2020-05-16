@@ -1,5 +1,10 @@
-from django.shortcuts import get_object_or_404, render, redirect, reverse
-from django.http import HttpResponse, HttpResponseRedirect
+from django.shortcuts import get_object_or_404, render, redirect
+
+from django.contrib.auth import logout
+from django.contrib.auth.models import User
+
+from django.contrib.auth import login, authenticate
+from django.contrib.auth.forms import UserCreationForm
 
 from .forms import CharacterForm
 from .models import  Mission, Character
@@ -10,11 +15,48 @@ from . import function
 def index(request):
     all_missions = Mission.objects.all()
     all_characters = Character.objects.all()
+
     context = {
         'all_missions': all_missions,
         'all_characters': all_characters,
+        'log_status': request.user.is_authenticated,
     }
     return render(request, 'rpg/index.html', context)
+
+
+def signup(request):
+    if request.method == 'POST':
+        form = UserCreationForm(request.POST)
+        if form.is_valid():
+            form.save()
+            username = form.cleaned_data.get('username')
+            raw_password = form.cleaned_data.get('password1')
+            user = authenticate(username=username, password=raw_password)
+            login(request, user)
+            return redirect('/')
+    else:
+        form = UserCreationForm()
+    return render(request, 'rpg/signup.html', {'form': form})
+
+
+def logout_view(request):
+    logout(request)
+    return redirect('/')
+
+
+def login_view(request):
+    if request.method == 'POST':
+        username = request.POST['username']
+        password = request.POST['password']
+        user = authenticate(request, username=username, password=password)
+        if user is not None:
+            login(request, user)
+            return redirect('/')
+
+        else:
+            print("fuck")
+    else:
+        return render(request, 'rpg/login.html')
 
 
 def character_creation(request):
@@ -24,7 +66,7 @@ def character_creation(request):
         form = CharacterForm(request.POST)
         if form.is_valid():
             post = form
-            check = post.save()
+            post.save()
             return redirect('rpg:index')
 
     return render(request, 'rpg/character_creation.html', {'form': form, 'character': Character})
