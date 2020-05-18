@@ -1,4 +1,6 @@
 import random
+from django.contrib.auth import login
+
 
 
 def calculating_sucess(mission, character):
@@ -27,3 +29,8 @@ def levelup(character, xp):
         character.experience -= character.experience_needed
         character.experience_needed = character.experience_needed + 10
         character.available_point += 5 #Change the value to add more point per level
+
+
+def log_check(request):
+    log_status = request.user.is_authenticated
+    return log_status

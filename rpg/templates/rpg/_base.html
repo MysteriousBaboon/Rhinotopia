@@ -17,6 +17,8 @@
 
 {% else %}
 <p>{{request.user}}</p>
+<p>Numbers of character : {{request.user.profile.character_number}}</p>
+
 <a href="{% url 'rpg:logout_view' %}">Log out</a>
 
 {% endif %}

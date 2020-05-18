@@ -136,3 +136,6 @@ dmypy.json
 
 # Cython debug symbols
 cython_debug/
+rpg/migrations/0025_profile.py
+rpg/migrations/0027_character_owner_id.py
+rpg/migrations/0027_character_owner_id.py

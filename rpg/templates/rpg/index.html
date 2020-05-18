@@ -3,7 +3,7 @@
 {% block title %}{% endblock %}
 
 {% block content %}
-
+{% if log_status %}
 <h1>Create</h1>
 <a href="{% url 'rpg:character_creation' %}">Character Creation</a>
 <h1>Characters</h1>
@@ -48,7 +48,11 @@
 </ul>
 {% else %}
 <p>No missions available.</p>
-
-
 {% endif %}
+
+{% else %}
+<h1> Do a tuto to explaine how it works</h1>
+{% endif %}
+
+
 {% endblock %}
