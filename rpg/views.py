@@ -13,11 +13,14 @@ from .function import log_check as log_status
 
 
 def index(request):  # Handling the Index, display every character associated with the profile or otherwise return a tuto
-    all_missions = Mission.objects.all()
+    log = log_status(request)
+    if log:
+
+        all_missions = function.mission_selection()
     all_characters = Character.objects.filter(owner_id=request.user.id)
     context = {
         'all_missions': all_missions,
-        'log_status': log_status(request),
+        'log_status': log,
         'all_characters': all_characters,
     }
     return render(request, 'rpg/index.html', context)
@@ -63,17 +66,19 @@ def character_creation(request):  # Use a form to create a character, add 1 to t
 
     form = CharacterForm()
     if request.method == 'POST':
-        form = CharacterForm(request.POST)
-        if form.is_valid():
-            post = form
-            character = post.save()
-            character.owner_id = request.user.id
-            character.save()
-
-            # TODO don't save replace it by something else
-            request.user.profile.character_number += 1
-            request.user.save()
-            return redirect('rpg:index')
+        if request.user.profile.character_number < request.user.profile.character_number_max:
+            form = CharacterForm(request.POST)
+            if form.is_valid():
+                post = form
+                character = post.save()
+                character.owner_id = request.user.id
+                character.save()
+                request.user.profile.character_number += 1
+                request.user.save()
+                return redirect('rpg:index')
+        else:
+            # TODO Error
+            print("error")
 
     return render(request, 'rpg/character_creation.html', {'form': form, 'character': Character,
                                                            'log_status': log_status(request)})
@@ -84,13 +89,13 @@ def character_detail(request, character_id):  # Check the character sheet ,if it
     character = get_object_or_404(Character, id=character_id)
     if request.method == 'POST':
         if character.available_point > 0:
-            if 'strength' in request.POST:
+            if 'strength.x' in request.POST:
                 character.strength += 1
                 character.available_point -= 1
-            if 'agility' in request.POST:
+            if 'agility.x' in request.POST:
                 character.agility += 1
                 character.available_point -= 1
-            if 'intelligence' in request.POST:
+            if 'intelligence.x' in request.POST:
                 character.intelligence += 1
                 character.available_point -= 1
 
@@ -98,13 +103,18 @@ def character_detail(request, character_id):  # Check the character sheet ,if it
     character.save()
 
     return render(request, 'rpg/character_detail.html', {'character': character,
-                                                         'point_available': character.available_point})
+                                                         'point_available': character.available_point,
+                                                         'is_owner': request.user.id == character.owner_id,
+                                                         'log_status': log_status(request),
+                                                         })
 
 
 @login_required(login_url='/')
 def mission_detail(request, mission_id):
     mission = get_object_or_404(Mission, id=mission_id)
-    characters = Character.objects.all()
+    characters = Character.objects.filter(owner_id=request.user.id)
+
+    # je call une array ici composé de différentes missions (en appelant une fonction je les choisis) et je les displays
     context = {
         'mission': mission,
         'characters': characters,

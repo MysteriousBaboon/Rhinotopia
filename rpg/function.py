@@ -34,3 +34,6 @@ def levelup(character, xp):
 def log_check(request):
     log_status = request.user.is_authenticated
     return log_status
+
+def mission_selection(request):
+    request.user.profile.missions_access

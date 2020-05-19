@@ -1,4 +1,109 @@
-
-* {
-    background-color: aquamarine;
+body
+{
+    background-image: url("/static/rpg/background.jpg") ;
+    background-attachment: fixed;
+    background-repeat: no-repeat;
+    background-size: cover;
 }
+
+
+/*  _base login */
+.logincorner
+{
+   background-color:coral;
+   position:absolute;
+   top:0;
+   right:0;
+}
+.mainmenu
+{
+   border-radius: 75px;
+   background-color:blue;
+   position:absolute;
+   top:0;
+   left:0;
+}
+
+/*  CharacterCreation */
+.charactercreation
+{
+display:block;
+float:left;
+}
+
+.charactercreation input[type=submit]
+ {
+  width: 100%;
+  background-color: #305edb;
+  color: white;
+  padding: 14px 20px;
+  margin: 8px 0;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.charactercreation input[type=submit]:hover
+ {
+  background-color: #21429c;
+}
+
+.charactercreation input[type=text], select
+ {
+  width: 100%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  display: inline-block;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
+.charactercreation label{display:block;}
+.charactercreation textarea{ display:block;}
+
+
+/*  Character Detail  */
+.name_character
+{
+     text-align: center;
+}
+
+.description_character
+{
+  padding-top: 40px;
+  padding-left: 50px;
+}
+
+.stat_character
+{
+  padding-top: 40px;
+  padding-left: 50px;
+}
+
+/*  Index  */
+.index_block
+{
+    text-align:center;
+}
+
+.index_div_char
+{
+    padding-left: 300px;
+    padding-top: 70px;
+    float:left;
+}
+
+.index_div_miss
+{
+        padding-right: 300px;
+        padding-top: 70px;
+        float:right;
+}
+
+.index_create
+{
+     text-align: center;
+
+}
+

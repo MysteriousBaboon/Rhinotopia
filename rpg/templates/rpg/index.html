@@ -1,58 +1,70 @@
 {% extends 'rpg/_base.html' %}
 
-{% block title %}{% endblock %}
 
 {% block content %}
 {% if log_status %}
-<h1>Create</h1>
-<a href="{% url 'rpg:character_creation' %}">Character Creation</a>
-<h1>Characters</h1>
-
-{% if all_characters %}
-<ul>
-
-    <h2> In Mission </h2>
-    {% for character in all_characters %}
-    {% if character.isOccupied%}
-    <li>
-        <a href="{% url 'rpg:character_detail' character.id %}">{{ character.name }}</a>
-    </li>
+<div class="index_create">
+    {% if request.user.profile.character_number < request.user.profile.character_number_max %}
+    <h1>Create</h1>
+    <a href="{% url 'rpg:character_creation' %}">Character Creation</a>
     {% endif %}
-    {% endfor %}
+</div>
 
-    <h2> Available</h2>
-    {% for character in all_characters %}
-    {% if character.isOccupied == False %}
-    <li>
-        <a href="{% url 'rpg:character_detail' character.id %}">{{ character.name }}</a>
-    </li>
-    {% endif %}
+<div class="index_block">
+    <div class="index_div_char">
+        <h1>Characters</h1>
+        {% if all_characters %}
+        <ul>
 
-    {% endfor %}
-</ul>
+            {% if firstof in all_characters %}
+            {% else %}
+            <h2> In Mission </h2>
+            {% endif %}
 
-{% else %}
-<p>No character created.</p>
-{% endif %}
+            {% for character in all_characters %}
+            {% if character.isOccupied%}
+            <li>
+                <a href="{% url 'rpg:character_detail' character.id %}">{{ character.name }}</a>
+            </li>
+            {% endif %}
+            {% endfor %}
 
 
+            {% if not character.IsOccupied in all_characters %}
+            <h2> Available</h2>
+            {% endif %}
+            {% for character in all_characters %}
+            {% if not character.isOccupied %}
+            <li>
+                <a href="{% url 'rpg:character_detail' character.id %}">{{ character.name }}</a>
+            </li>
+            {% endif %}
+            {% endfor %}
+        </ul>
 
-<h1>Missions</h1>
-{% if all_missions %}
-<ul>
-    {% for mission in all_missions %}
-    <li>
-        <a href="{% url 'rpg:mission_detail' mission.id %}">{{ mission.name }}</a>
-    </li>
-    {% endfor %}
-</ul>
-{% else %}
-<p>No missions available.</p>
-{% endif %}
+        {% else %}
+        <p>No character created.</p>
+        {% endif %}
+    </div>
 
-{% else %}
-<h1> Do a tuto to explaine how it works</h1>
-{% endif %}
+    <div class="index_div_miss">
+        <h1>Missions</h1>
+        {% if all_missions %}
+        <ul>
+            {% for mission in all_missions %}
+            <li>
+                <a href="{% url 'rpg:mission_detail' mission.id %}">{{ mission.name }}</a>
+            </li>
+            {% endfor %}
+        </ul>
+        {% else %}
+        <p>No missions available.</p>
+        {% endif %}
 
+        {% else %}
+        <h1> Do a tuto to explaine how it works</h1>
+        {% endif %}
+    </div>
+</div>
 
 {% endblock %}

@@ -1,7 +1,17 @@
+{% extends 'rpg/_base.html' %}
+
+
+
+{% block content %}
+
+
+
+
+
 {% if success %}
     <h1>Victory of {{character.name}} !</h1>
 {% else %}
     <h1>Defeat of {{character.name}} !</h1>
 
   {% endif %}
-
+{% endblock %}

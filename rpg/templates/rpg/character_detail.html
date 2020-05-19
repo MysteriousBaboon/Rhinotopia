@@ -1,34 +1,44 @@
 {% extends 'rpg/_base.html' %}
 
-{% block title %}{{ place.place_name }}{% endblock %}
-
 {% block content %}
+{% if is_owner %}
+<div class="name_character">
     <h1>{{ character.name }}</h1>
-    <p>{{character.sex}}</p>
+</div>
 <br>
-    <h2>  Description </h2>
-            <p>{{ character.description }}</p>
-<h2>Race</h2>
+
+<div class="description_character">
+    <h2> Description </h2>
+    <p>{{ character.description }}</p>
+    <h2>Characteristics</h2>
     <p>Species : {{character.specie}}</p>
     <p> Race : {{character.race}}</p>
+    <p>{{character.sex}}</p>
+</div>
 
-
-
+<div class="stat_character">
     <h2> Stats</h2>
-
     <p> Level {{character.level}}</p>
     <p> Experience : {{ character.experience}} / {{character.experience_needed}} XP</p>
     <p> Strength : {{character.strength}} / Intelligence : {{character.intelligence}} / Agility : {{character.agility}}</p>
     <p> Point available: {{point_available}} </p>
+</div>
 
-{% if point_available > 0  %}
-<form action="" method="post">
+<div>
+    {% if point_available > 0  %}
+    <form action="" method="post">
         {% csrf_token %}
-<button type="submit" name="strength" value="True">Strength</button>
-<button type="submit" name="intelligence" value="True">Intelligence</button>
-<button type="submit" name="agility" value="True">Agility</button>
 
-</form>
+        <label> Strength</label><input type="image" src="/static/rpg/plus_button.png" name="strength" width="40" height="40"><br>
+        <label> Intelligence</label><input type="image" src="/static/rpg/plus_button.png" name="intelligence" width="40" height="40"><br>
+        <label> Agility</label><input type="image" src="/static/rpg/plus_button.png" name="agility" width="40" height="40"><br>
+    </form>
+    {% endif %}
+
+    {% else %}
+    <p>No access</p>
+</div>
+
 {% endif %}
 
 {% endblock %}

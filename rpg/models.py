@@ -8,7 +8,7 @@ class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     character_number = models.IntegerField(default=0)
     character_number_max = models.IntegerField(default=3)
-    character_list = []
+    missions_access = []
 
 
 @receiver(post_save, sender=User)
@@ -27,7 +27,7 @@ class Character(models.Model):
     owner_id = models.IntegerField(default=0)
 
     # Description and Name
-    name = models.CharField(max_length=200)
+    name = models.CharField(max_length=40)
     description = models.TextField()
 
     # Is available for mission
