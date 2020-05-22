@@ -112,14 +112,16 @@ def character_detail(request,
             if 'intelligence.x' in request.POST:
                 character.intelligence += 1
                 character.available_point -= 1
+            if 'stamina.x' in request.POST:
+                character.stamina += 1
+                character.available_point -= 1
 
-    character.race = character.specie
-    character.save()
-
+    a = function.charactercheck(character)
     return render(request, 'rpg/character_detail.html', {'character': character,
                                                          'point_available': character.available_point,
                                                          'is_owner': request.user.id == character.owner_id,
                                                          'log_status': log_status(request),
+                                                         'mission': a,
                                                          })
 
 

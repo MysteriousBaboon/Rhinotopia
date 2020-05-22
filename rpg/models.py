@@ -48,20 +48,26 @@ class Character(models.Model):
     strength = models.IntegerField(default=0)
     intelligence = models.IntegerField(default=0)
     agility = models.IntegerField(default=0)
-    stamina = models.IntegerField(default=0)
+    stamina = models.IntegerField(default=1)
+    hp = models.IntegerField(default=1)
+    max_Hp = models.IntegerField(default=1)
 
     # Species available
     class Species(models.TextChoices):
-        ELF = 'Elf',
-        ORK = 'Orc',
-        HUMAN = 'Human',
+        SPIDER = 'Spider',
+        INSECTOID = 'Insectoid',
+        RHINOCEROS = 'Rhinoceros',
+        CANINE = 'Canine',
+        FELINE = 'Feline',
+        URSIDAE = 'Ursidae',
 
     specie = models.CharField(max_length=10,
                               choices=Species.choices,
-                              default=Species.HUMAN, )
+                              default=Species.RHINOCEROS, )
 
     # Race of the character
     race = models.CharField(max_length=15, default='Unspecified')
+    evolution_level = models.IntegerField(default=0)
 
     # Cosmetic
     class Sex(models.TextChoices):
@@ -94,3 +100,4 @@ class Mission(models.Model):
 
     def __str__(self):
         return self.name
+

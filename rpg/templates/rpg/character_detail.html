@@ -21,15 +21,16 @@
     <p>Is occupied : {{character.isOccupied}}</p>
     {% if character.isOccupied %}
     <p>Finish time : {{character.finishTime}}</p>
-    <p> Mission Name : {{character.mission_id}}</p>
+    <p> Mission Name : {{mission.name}}</p>
     {% endif %}
 </div>
 
 <div class="stat_character">
     <h2> Statistics</h2>
+    <p>Health : {{character.hp}} / {{character.max_Hp}}</p>
     <p> Level {{character.level}}</p>
     <p> Experience : {{ character.experience}} / {{character.experience_needed}} XP</p>
-    <p> Strength : {{character.strength}} / Intelligence : {{character.intelligence}} / Agility : {{character.agility}}</p>
+    <p> Strength : {{character.strength}} / Intelligence : {{character.intelligence}} / Agility : {{character.agility}} / Stamina : {{character.stamina}}</p>
     <p> Point available: {{point_available}} </p>
 </div>
 
@@ -41,6 +42,8 @@
         <label> Strength</label><input type="image" src="/static/rpg/plus_button.png" name="strength" width="40" height="40"><br>
         <label> Intelligence</label><input type="image" src="/static/rpg/plus_button.png" name="intelligence" width="40" height="40"><br>
         <label> Agility</label><input type="image" src="/static/rpg/plus_button.png" name="agility" width="40" height="40"><br>
+        <label> Stamina</label><input type="image" src="/static/rpg/plus_button.png" name="stamina" width="40" height="40"><br>
+
     </form>
     {% endif %}
 
