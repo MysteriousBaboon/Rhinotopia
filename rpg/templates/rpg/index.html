@@ -60,6 +60,10 @@
         {% else %}
         <p>No missions available.</p>
         {% endif %}
+        <h1>Mission complete </h1>
+        {% for char in characters_finish %}
+                <a href="{% url 'rpg:mission_success' char.id %}">{{ char.name }}</a>
+        {% endfor %}
 
         {% else %}
         <h1> Do a tuto to explaine how it works</h1>

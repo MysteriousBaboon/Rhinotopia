@@ -12,4 +12,5 @@ urlpatterns = [
     path('character/create/', views.character_creation, name='character_creation'),
     path('character/<int:character_id>/', views.character_detail, name='character_detail'),
     path('mission/<int:mission_id>/', views.mission_detail, name='mission_detail'),
+    path('mission/success/<int:character_id>/', views.mission_success, name='mission_success'),
 ]

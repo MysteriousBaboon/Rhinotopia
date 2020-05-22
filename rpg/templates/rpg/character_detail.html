@@ -15,9 +15,18 @@
     <p> Race : {{character.race}}</p>
     <p>{{character.sex}}</p>
 </div>
+<div>
+    <h2>Status</h2>
+    <p>Is occupied : {{character.isOccupied}}</p>
+    {% if character.isOccupied %}
+    <p>Finish time : {{character.finishTime}}</p>
+    <p> Mission Name : {{character.mission_id}}</p>
+    {% endif %}
 
+ </p>
+</div>
 <div class="stat_character">
-    <h2> Stats</h2>
+    <h2> Statistics</h2>
     <p> Level {{character.level}}</p>
     <p> Experience : {{ character.experience}} / {{character.experience_needed}} XP</p>
     <p> Strength : {{character.strength}} / Intelligence : {{character.intelligence}} / Agility : {{character.agility}}</p>

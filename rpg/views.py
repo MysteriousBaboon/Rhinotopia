@@ -1,9 +1,10 @@
+from datetime import datetime, timezone
+
 from django.shortcuts import get_object_or_404, render, redirect
 
 from django.contrib.auth import logout, authenticate, login
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.decorators import login_required
-
 
 from .forms import CharacterForm
 from .models import Mission, Character
@@ -12,16 +13,28 @@ from . import function
 from .function import log_check as log_status
 
 
-def index(request):  # Handling the Index, display every character associated with the profile or otherwise return a tuto
+def index(
+        request):  # Handling the Index, display every character associated with the profile or otherwise return a tuto
     log = log_status(request)
+    characters_finish = []
+    mission_list = None
     if log:
+        for character in Character.objects.filter(isOccupied=True, owner_id=request.user.id):
+            if character.finishTime < datetime.now(timezone.utc):
+                characters_finish.append(character)
 
-        all_missions = function.mission_selection()
+        if not request.user.profile.missions_access:  # TODO need to find a way to storethe missions in the profile so it doesn't load differents missions each time you go to index
+            mission_list = function.mission_selection(request)
+            request.user.profile.missions_access = mission_list
+        else:
+            pass
+
     all_characters = Character.objects.filter(owner_id=request.user.id)
     context = {
-        'all_missions': all_missions,
+        'all_missions': mission_list,
         'log_status': log,
         'all_characters': all_characters,
+        'characters_finish': characters_finish,
     }
     return render(request, 'rpg/index.html', context)
 
@@ -85,7 +98,8 @@ def character_creation(request):  # Use a form to create a character, add 1 to t
 
 
 @login_required(login_url='/')
-def character_detail(request, character_id):  # Check the character sheet ,if it has available skill point buttons will be displayed to upgrade stats
+def character_detail(request,
+                     character_id):  # Check the character sheet ,if it has available skill point buttons will be displayed to upgrade stats
     character = get_object_or_404(Character, id=character_id)
     if request.method == 'POST':
         if character.available_point > 0:
@@ -112,9 +126,8 @@ def character_detail(request, character_id):  # Check the character sheet ,if it
 @login_required(login_url='/')
 def mission_detail(request, mission_id):
     mission = get_object_or_404(Mission, id=mission_id)
-    characters = Character.objects.filter(owner_id=request.user.id)
+    characters = Character.objects.filter(owner_id=request.user.id, isOccupied=False)
 
-    # je call une array ici composé de différentes missions (en appelant une fonction je les choisis) et je les displays
     context = {
         'mission': mission,
         'characters': characters,
@@ -124,16 +137,23 @@ def mission_detail(request, mission_id):
     if request.method == 'POST':
         character_id = request.POST['characters']
         character = Character.objects.get(id=character_id)
-
-        character.isOccupied = True
-        character.save()
+        function.sendmission(character, mission)
 
         context = {
-            'success': function.calculating_sucess(mission, character),
-            'character': character,
             'log_status': log_status(request),
         }
 
-        return render(request, 'rpg/mission_finish.html', context)
+        return redirect('/')
 
     return render(request, 'rpg/mission_detail.html', context)
+
+
+@login_required(login_url='/')
+def mission_success(request, character_id):
+    character = get_object_or_404(Character, id=character_id)
+    success = function.resultmission(character)
+
+    context = {'log_status': log_status(request),
+               'success': success,
+               }
+    return render(request, 'rpg/mission_success.html', context)

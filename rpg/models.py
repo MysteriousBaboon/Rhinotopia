@@ -1,3 +1,5 @@
+from datetime import datetime, timezone
+
 from django.db import models
 from django.contrib.auth.models import User
 from django.db.models.signals import post_save
@@ -30,8 +32,10 @@ class Character(models.Model):
     name = models.CharField(max_length=40)
     description = models.TextField()
 
-    # Is available for mission
+    # Mission Related Stuff
     isOccupied = models.BooleanField(default=False)
+    finishTime = models.DateTimeField(default=datetime.now(timezone.utc), auto_now=False, auto_now_add=False)
+    mission_id = models.IntegerField(default=0)
 
     # Experience and Level related
     experience = models.IntegerField(default=0)
@@ -44,10 +48,6 @@ class Character(models.Model):
     strength = models.IntegerField(default=0)
     intelligence = models.IntegerField(default=0)
     agility = models.IntegerField(default=0)
-
-    strength_final = models.IntegerField(default=1)
-    intelligence_final = models.IntegerField(default=1)
-    agility_final = models.IntegerField(default=1)
 
     # Species available
     class Species(models.TextChoices):
@@ -80,8 +80,9 @@ class Character(models.Model):
 class Mission(models.Model):
     name = models.CharField(max_length=200)
     description = models.TextField()
+    difficulty = models.CharField(default='F', max_length=3)
 
-    isActive = models.BooleanField()
+    isActive = models.BooleanField(default=False)
     duration = models.DurationField()
 
     success_Goal = models.IntegerField(default=1)
