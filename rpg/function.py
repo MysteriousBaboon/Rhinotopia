@@ -50,7 +50,7 @@ def mission_selection(request):
             elif mission_difficulty < 20:
                 rank = 'SSS'
 
-            rand_mission = random.choice(Mission.objects.filter(difficulty=rank, isActive=False))# TODO add filter to don't have double
+            rand_mission = random.choice(Mission.objects.filter(difficulty=rank))# TODO add filter to don't have double
             mission_list.append(rand_mission)
         return mission_list
 
@@ -58,7 +58,6 @@ def mission_selection(request):
 def sendmission(character, mission):
     character.isOccupied = True
     character.mission_id = mission.id
-    #mission.isActive = True
     mission.save()
     character.finishTime = datetime.now(timezone.utc) + mission.duration
     character.save()

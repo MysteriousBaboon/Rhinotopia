@@ -5,8 +5,10 @@
 {% if log_status %}
 {% if success %}
     <h1>Victory of {{character.name}} !</h1>
+    <p> You won {{mission.xp}} XP !</p>
 {% else %}
     <h1>Defeat of {{character.name}} !</h1>
+    <p> You lost</p>
   {% endif %}
 
 {% endif %}

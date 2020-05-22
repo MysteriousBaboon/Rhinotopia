@@ -151,9 +151,15 @@ def mission_detail(request, mission_id):
 @login_required(login_url='/')
 def mission_success(request, character_id):
     character = get_object_or_404(Character, id=character_id)
-    success = function.resultmission(character)
+    mission = get_object_or_404(Mission, id=character.mission_id)
+    if character.finishTime < datetime.now(timezone.utc):
+        success = function.resultmission(character)
 
-    context = {'log_status': log_status(request),
-               'success': success,
-               }
-    return render(request, 'rpg/mission_success.html', context)
+        context = {'log_status': log_status(request),
+                   'success': success,
+                   'character':character,
+                   'mission': mission,
+                   }
+        return render(request, 'rpg/mission_success.html', context)
+    else:
+        return redirect('/')

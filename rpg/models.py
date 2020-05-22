@@ -48,6 +48,7 @@ class Character(models.Model):
     strength = models.IntegerField(default=0)
     intelligence = models.IntegerField(default=0)
     agility = models.IntegerField(default=0)
+    stamina = models.IntegerField(default=0)
 
     # Species available
     class Species(models.TextChoices):
@@ -82,7 +83,6 @@ class Mission(models.Model):
     description = models.TextField()
     difficulty = models.CharField(default='F', max_length=3)
 
-    isActive = models.BooleanField(default=False)
     duration = models.DurationField()
 
     success_Goal = models.IntegerField(default=1)
