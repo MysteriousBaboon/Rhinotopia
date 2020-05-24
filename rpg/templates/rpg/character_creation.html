@@ -8,4 +8,7 @@
     <input type="submit" value="Submit">
 </form>
 </div>
+{% if error %}
+<script>alert("Too many characters already created.")</script>
+{% endif %}
 {% endblock %}

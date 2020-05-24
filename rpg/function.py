@@ -1,6 +1,7 @@
 import random
-from datetime import datetime, timezone
+from datetime import datetime, timezone, timedelta
 from .models import Mission, Character
+
 
 
 def log_check(request):  # Check if the user is logged in
@@ -32,10 +33,13 @@ def mission_selection(request):  # Choose what mission to display based on the l
                 rank = 'A'
             elif mission_difficulty < 18:
                 rank = 'S'
-            elif mission_difficulty < 20:
+            else:
                 rank = 'SSS'
 
-            rand_mission = random.choice(Mission.objects.filter(difficulty=rank))# TODO add filter to don't have double
+            rand_mission = random.choice(Mission.objects.filter(difficulty=rank))
+            while rand_mission in mission_list:
+                rand_mission = random.choice(Mission.objects.filter(difficulty=rank))
+
             mission_list.append(rand_mission)
         return mission_list
 
@@ -67,14 +71,31 @@ def calculating_sucess(mission, character):  # Check if the mission is winned or
         character.save()
         return True
     else:
+        character.hp -= mission.damage
+        character.save()
         return False
 
 
 def charactercheck(character):
-    if (character.level / 5) >= (1 * character.evolution_level):
-        checkrace(character)
+    if character.isAlive:  # Check if the character is alive or respawn it after a cd
+        if character.hp <= 0:
+            character.isAlive = False
+            character.respawnDate = datetime.now(timezone.utc) + timedelta(hours=2)
+        elif character.hp < character.max_Hp and datetime.now(timezone.utc) > character.regenDate:
+            character.hp += 2
+            character.regenDate = datetime.now(timezone.utc) + timedelta(minutes=20)
 
-    character.max_Hp = character.stamina * 2
+    else:
+        if character.respawnDate < datetime.now(timezone.utc):
+            character.isAlive = True
+            character.hp = character.max_Hp
+
+    if character.level == 0:
+        evolve(character)
+    if (character.level / 5) >= (1 * character.evolution_level):
+        character.can_Evolve = True
+
+    character.max_Hp = 1 + character.stamina * 2
     character.save()
     if character.mission_id != 0:
         return Mission.objects.get(id=character.mission_id)
@@ -89,10 +110,10 @@ def levelup(character, xp):  # Check if the character has enough xp and if it do
         character.available_point += 5  # Change the value to add more point per level
 
 
-def checkrace(character):
+def evolve(character):
     character.evolution_level += 1
 
-    if character.species == 'Spider':
+    if character.specie == 'Spider':
         if character.evolution_level == 1:
             character.race = 'Little Spider'
         elif character.evolution_level == 2:
@@ -102,7 +123,7 @@ def checkrace(character):
         elif character.evolution_level == 4:
             character.race = 'Gigantic Spider'
 
-    elif character.species == 'Insectoid':
+    elif character.specie == 'Insectoid':
         if character.evolution_level == 1:
             character.race = 'Little Scolopendre'
         elif character.evolution_level == 2:
@@ -112,7 +133,7 @@ def checkrace(character):
         elif character.evolution_level == 4:
             character.race = 'Gigantic Scolopendre'
 
-    elif character.species == 'Rhinoceros':
+    elif character.specie == 'Rhinoceros':
         if character.evolution_level == 1:
             character.race = 'Little Rhinoceros'
         elif character.evolution_level == 2:
@@ -122,7 +143,7 @@ def checkrace(character):
         elif character.evolution_level == 4:
             character.race = 'Gigantic Rhinoceros'
 
-    elif character.species == 'Canine':
+    elif character.specie == 'Canine':
         if character.evolution_level == 1:
             character.race = 'Little Canine'
         elif character.evolution_level == 2:
@@ -132,7 +153,7 @@ def checkrace(character):
         elif character.evolution_level == 4:
             character.race = 'Gigantic Canine'
 
-    elif character.species == 'Feline':
+    elif character.specie == 'Feline':
         if character.evolution_level == 1:
             character.race = 'Little Feline'
         elif character.evolution_level == 2:
@@ -142,7 +163,7 @@ def checkrace(character):
         elif character.evolution_level == 4:
             character.race = 'Gigantic Feline'
 
-    elif character.species == 'Ursidae':
+    elif character.specie == 'Ursidae':
         if character.evolution_level == 1:
             character.race = 'Little Ursidae'
         elif character.evolution_level == 2:
@@ -152,6 +173,7 @@ def checkrace(character):
         elif character.evolution_level == 4:
             character.race = 'Gigantic Ursidae'
 
-
+    character.can_Evolve = False
+    character.save()
 
 

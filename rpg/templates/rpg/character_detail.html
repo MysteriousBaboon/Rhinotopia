@@ -13,11 +13,16 @@
     <h2>Characteristics</h2>
     <p>Species : {{character.specie}}</p>
     <p> Race : {{character.race}}</p>
-    <p>{{character.sex}}</p>
+    <p> Sex : {{character.sex}}</p>
 </div>
 
 <div class="statut_character">
     <h2>Status</h2>
+    <p>Is Alive : {{character.isAlive}}</p>
+    {% if not character.isAlive %}
+    <p>Recovery time : {{character.respawnDate}}</p>
+    {% endif %}
+
     <p>Is occupied : {{character.isOccupied}}</p>
     {% if character.isOccupied %}
     <p>Finish time : {{character.finishTime}}</p>
@@ -43,7 +48,12 @@
         <label> Intelligence</label><input type="image" src="/static/rpg/plus_button.png" name="intelligence" width="40" height="40"><br>
         <label> Agility</label><input type="image" src="/static/rpg/plus_button.png" name="agility" width="40" height="40"><br>
         <label> Stamina</label><input type="image" src="/static/rpg/plus_button.png" name="stamina" width="40" height="40"><br>
-
+    </form>
+    {% endif %}
+    {% if character.can_Evolve %}
+    <form action="" method="post">
+                {% csrf_token %}
+            <label> Evolve</label><input type="image" src="/static/rpg/plus_button.png" name="evolve" width="40" height="40"><br>
     </form>
     {% endif %}
 

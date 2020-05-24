@@ -33,6 +33,10 @@ class Character(models.Model):
     description = models.TextField()
 
     # Mission Related Stuff
+    isAlive = models.BooleanField(default=True)
+    respawnDate = models.DateTimeField(default=datetime.now(timezone.utc), auto_now=False, auto_now_add=False)
+    regenDate = models.DateTimeField(default=datetime.now(timezone.utc), auto_now=False, auto_now_add=False)
+
     isOccupied = models.BooleanField(default=False)
     finishTime = models.DateTimeField(default=datetime.now(timezone.utc), auto_now=False, auto_now_add=False)
     mission_id = models.IntegerField(default=0)
@@ -68,6 +72,7 @@ class Character(models.Model):
     # Race of the character
     race = models.CharField(max_length=15, default='Unspecified')
     evolution_level = models.IntegerField(default=0)
+    can_Evolve = models.BooleanField(default=True)
 
     # Cosmetic
     class Sex(models.TextChoices):
@@ -95,6 +100,7 @@ class Mission(models.Model):
     strength_Ratio = models.FloatField(default=1)
     intelligence_Ratio = models.FloatField(default=1)
     agility_Ratio = models.FloatField(default=1)
+    damage = models.IntegerField(default=1)
 
     xp = models.IntegerField(default=1)
 

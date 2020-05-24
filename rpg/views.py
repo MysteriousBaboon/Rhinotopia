@@ -69,14 +69,14 @@ def login_view(request):  # Handling Login
             return redirect('/')
 
         else:
-            print("fuck")  # TODO make an error display messaage
+            return render(request, 'rpg/login.html', {'error': True})
     else:
         return render(request, 'rpg/login.html')
 
 
 @login_required(login_url='/')
 def character_creation(request):  # Use a form to create a character, add 1 to the number of character
-
+    error = False
     form = CharacterForm()
     if request.method == 'POST':
         if request.user.profile.character_number < request.user.profile.character_number_max:
@@ -90,18 +90,21 @@ def character_creation(request):  # Use a form to create a character, add 1 to t
                 request.user.save()
                 return redirect('rpg:index')
         else:
-            # TODO Error
-            print("error")
+            error = True
 
     return render(request, 'rpg/character_creation.html', {'form': form, 'character': Character,
-                                                           'log_status': log_status(request)})
+                                                           'log_status': log_status(request),
+                                                           'error': error})
 
 
 @login_required(login_url='/')
 def character_detail(request,
                      character_id):  # Check the character sheet ,if it has available skill point buttons will be displayed to upgrade stats
     character = get_object_or_404(Character, id=character_id)
+    function.charactercheck(character)
     if request.method == 'POST':
+        if 'evolve.x' in request.POST:
+            function.checkrace(character)
         if character.available_point > 0:
             if 'strength.x' in request.POST:
                 character.strength += 1
@@ -116,7 +119,7 @@ def character_detail(request,
                 character.stamina += 1
                 character.available_point -= 1
 
-    a = function.charactercheck(character)
+    a = function.evolve(character)
     return render(request, 'rpg/character_detail.html', {'character': character,
                                                          'point_available': character.available_point,
                                                          'is_owner': request.user.id == character.owner_id,
@@ -140,11 +143,6 @@ def mission_detail(request, mission_id):
         character_id = request.POST['characters']
         character = Character.objects.get(id=character_id)
         function.sendmission(character, mission)
-
-        context = {
-            'log_status': log_status(request),
-        }
-
         return redirect('/')
 
     return render(request, 'rpg/mission_detail.html', context)

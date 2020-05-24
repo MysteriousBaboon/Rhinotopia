@@ -54,6 +54,7 @@
             {% for mission in all_missions %}
             <li>
                 <a href="{% url 'rpg:mission_detail' mission.id %}">{{ mission.name }}</a>
+                <p>Rank : {{ mission.difficulty}}</p>
             </li>
             {% endfor %}
         </ul>

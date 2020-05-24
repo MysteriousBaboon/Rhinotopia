@@ -13,12 +13,13 @@
         <form method="post">
             {% csrf_token %}
             <option disabled="true">Choose a Character</option>
-            <select name="characters">
+
+            <select name="characters"{% if not characters %} disabled {% endif %} >
             {% for character in characters %}<option value="{{character.id}}"> {{character.name}}</option>
 
             {% endfor %}
             </select>
-            <input type="submit" value="Start the Quest"></input>
+            <input type="submit" value="Start the Quest" {% if not characters %} disabled {% endif %}></input>
         </form>
 
 
