@@ -4,6 +4,7 @@ from django.db import models
 from django.contrib.auth.models import User
 from django.db.models.signals import post_save
 from django.dispatch import receiver
+from django.utils.timezone import now
 
 
 class Profile(models.Model):
@@ -34,11 +35,11 @@ class Character(models.Model):
 
     # Mission Related Stuff
     isAlive = models.BooleanField(default=True)
-    respawnDate = models.DateTimeField(default=datetime.now(timezone.utc), auto_now=False, auto_now_add=False)
-    regenDate = models.DateTimeField(default=datetime.now(timezone.utc), auto_now=False, auto_now_add=False)
+    respawnDate = models.DateTimeField(default=now, auto_now=False, auto_now_add=False)
+    regenDate = models.DateTimeField(default=now, auto_now=False, auto_now_add=False)
 
     isOccupied = models.BooleanField(default=False)
-    finishTime = models.DateTimeField(default=datetime.now(timezone.utc), auto_now=False, auto_now_add=False)
+    finishTime = models.DateTimeField(default=now, auto_now=False, auto_now_add=False)
     mission_id = models.IntegerField(default=0)
 
     # Experience and Level related
@@ -53,7 +54,7 @@ class Character(models.Model):
     intelligence = models.IntegerField(default=0)
     agility = models.IntegerField(default=0)
     stamina = models.IntegerField(default=1)
-    hp = models.IntegerField(default=1)
+    hp = models.IntegerField(default=3)
     max_Hp = models.IntegerField(default=1)
 
     # Species available

@@ -2,11 +2,13 @@
 
 {% block content %}
 {% if is_owner %}
+
 <div class="name_character">
     <h1>{{ character.name }}</h1>
 </div>
 <br>
 
+<div class="main_character_detail">
 <div class="description_character">
     <h2> Description </h2>
     <p>{{ character.description }}</p>
@@ -14,6 +16,13 @@
     <p>Species : {{character.specie}}</p>
     <p> Race : {{character.race}}</p>
     <p> Sex : {{character.sex}}</p>
+
+    {% if character.can_Evolve %}
+    <form action="" method="post">
+                {% csrf_token %}
+            <label> Evolve</label><input type="image" src="/static/rpg/plus_button.png" name="evolve" width="40" height="40"><br>
+    </form>
+    {% endif %}
 </div>
 
 <div class="statut_character">
@@ -39,7 +48,6 @@
     <p> Point available: {{point_available}} </p>
 </div>
 
-<div>
     {% if point_available > 0  %}
     <form action="" method="post">
         {% csrf_token %}
@@ -50,17 +58,11 @@
         <label> Stamina</label><input type="image" src="/static/rpg/plus_button.png" name="stamina" width="40" height="40"><br>
     </form>
     {% endif %}
-    {% if character.can_Evolve %}
-    <form action="" method="post">
-                {% csrf_token %}
-            <label> Evolve</label><input type="image" src="/static/rpg/plus_button.png" name="evolve" width="40" height="40"><br>
-    </form>
-    {% endif %}
 
     {% else %}
     <p>No access</p>
-</div>
 
+</div>
 {% endif %}
 
 {% endblock %}

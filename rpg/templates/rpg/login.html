@@ -2,7 +2,8 @@
 
 
 {% block content %}
-  <h2>LOG IN</h2>
+<div class="login">
+  <h2>Log in</h2>
   <form method="post">
       {% csrf_token %}
 
@@ -14,5 +15,6 @@
 {% if error %}
 <script>alert("Wrong username or password.");</script>
 {% endif %}
+</div>
 
 {% endblock %}

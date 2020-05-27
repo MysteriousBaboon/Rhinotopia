@@ -72,26 +72,30 @@ def calculating_sucess(mission, character):  # Check if the mission is winned or
         return True
     else:
         character.hp -= mission.damage
+        character.regenDate = datetime.now(timezone.utc)
+
         character.save()
         return False
 
 
 def charactercheck(character):
     if character.isAlive:  # Check if the character is alive or respawn it after a cd
+        minute_elapsed = (datetime.now(timezone.utc) - character.regenDate).seconds / 60
         if character.hp <= 0:
             character.isAlive = False
             character.respawnDate = datetime.now(timezone.utc) + timedelta(hours=2)
-        elif character.hp < character.max_Hp and datetime.now(timezone.utc) > character.regenDate:
-            character.hp += 2
-            character.regenDate = datetime.now(timezone.utc) + timedelta(minutes=20)
+        while character.hp < character.max_Hp and minute_elapsed >= 30:
+            print("AHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHH")
+            character.hp += 1
+            minute_elapsed -= 30
+        if character.hp == character.max_Hp:
+            character.regenDate = datetime.now(timezone.utc)
 
     else:
         if character.respawnDate < datetime.now(timezone.utc):
             character.isAlive = True
             character.hp = character.max_Hp
 
-    if character.level == 0:
-        evolve(character)
     if (character.level / 5) >= (1 * character.evolution_level):
         character.can_Evolve = True
 
@@ -137,6 +141,7 @@ def evolve(character):
         if character.evolution_level == 1:
             character.race = 'Little Rhinoceros'
         elif character.evolution_level == 2:
+            character.stamina += 100000
             character.race = 'Medium Rhinoceros'
         elif character.evolution_level == 3:
             character.race = 'Big Rhinoceros'

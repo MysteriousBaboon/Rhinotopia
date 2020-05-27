@@ -10,7 +10,12 @@ body
 /*  _base login */
 .logincorner
 {
-   background-color:coral;
+    padding-left: 20px;
+    padding-right: 20px;
+    padding-bottom: 20px;
+
+   background-image: url("/static/rpg/silver.jpg") ;
+   border-style: double;
    position:absolute;
    top:0;
    right:0;
@@ -18,7 +23,7 @@ body
 .mainmenu
 {
    border-radius: 75px;
-   background-color:blue;
+   background-color:#194934eb;
    position:absolute;
    top:0;
    left:0;
@@ -27,6 +32,7 @@ body
 /*  CharacterCreation */
 .charactercreation
 {
+        padding-top: 200px;
 display:block;
 float:left;
 }
@@ -62,8 +68,21 @@ float:left;
 .charactercreation label{display:block;}
 .charactercreation textarea{ display:block;}
 
-
 /*  Character Detail  */
+.main_character_detail
+{
+        padding-left: 10px;
+        padding-top: 100px;
+}
+
+.main_character_detail form
+{
+float-right;
+float-top;
+     text-align: right;
+     text-align: top;
+background-color: purple;
+}
 .name_character
 {
      text-align: center;
@@ -111,6 +130,38 @@ float:left;
 .index_create
 {
      text-align: center;
+}
+
+
+.login
+{
+        padding-left: 10px;
+        padding-top: 250px;
+}
+
+/*  Mission Detail*/
+.mission_detail
+{
+        padding-left: 10px;
+        padding-top: 150px;
+}
+
+.mission_name
+{
+text-align: center;
 
 }
 
+/*  Signup */
+.signup
+{
+    padding-right: 1000px;
+    padding-left: 10px;
+    padding-top: 250px;
+}
+
+.signup div
+{
+    padding-right: 500px;
+background-color: #0C85838f;
+}

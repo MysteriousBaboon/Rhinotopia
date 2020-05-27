@@ -4,11 +4,12 @@
 
 {% block content %}
 
-    <h1>{{ mission.name }}</h1>
-    <p>{{ mission.description }}
+    <h1 class="mission_name">{{ mission.name }}</h1>
+<div class="mission_detail">
+    <p>Description : {{ mission.description }}
     <br>
     <p>Duration : {{ mission.duration }}</p>
-    <p>Difficulty : {{mission.difficulty}}</p>
+    <p>Difficulty : {{mission.difficulty}} Rank</p>
     <p>Experience Reward : {{mission.xp}}</p>
         <form method="post">
             {% csrf_token %}
@@ -21,6 +22,6 @@
             </select>
             <input type="submit" value="Start the Quest" {% if not characters %} disabled {% endif %}></input>
         </form>
-
+</div>
 
 {% endblock %}

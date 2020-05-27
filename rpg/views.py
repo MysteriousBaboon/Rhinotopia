@@ -85,6 +85,7 @@ def character_creation(request):  # Use a form to create a character, add 1 to t
                 post = form
                 character = post.save()
                 character.owner_id = request.user.id
+                function.evolve(character)
                 character.save()
                 request.user.profile.character_number += 1
                 request.user.save()
@@ -101,10 +102,14 @@ def character_creation(request):  # Use a form to create a character, add 1 to t
 def character_detail(request,
                      character_id):  # Check the character sheet ,if it has available skill point buttons will be displayed to upgrade stats
     character = get_object_or_404(Character, id=character_id)
+    if character.isOccupied:
+        mission = Mission.objects.get(id=character.mission_id)
+    else:
+        mission = None
     function.charactercheck(character)
     if request.method == 'POST':
         if 'evolve.x' in request.POST:
-            function.checkrace(character)
+            function.evolve(character)
         if character.available_point > 0:
             if 'strength.x' in request.POST:
                 character.strength += 1
@@ -117,14 +122,15 @@ def character_detail(request,
                 character.available_point -= 1
             if 'stamina.x' in request.POST:
                 character.stamina += 1
-                character.available_point -= 1
+                character.hp += 2
 
-    a = function.evolve(character)
+                character.available_point -= 1
+    function.charactercheck(character)
     return render(request, 'rpg/character_detail.html', {'character': character,
                                                          'point_available': character.available_point,
                                                          'is_owner': request.user.id == character.owner_id,
                                                          'log_status': log_status(request),
-                                                         'mission': a,
+                                                         'mission': mission,
                                                          })
 
 
