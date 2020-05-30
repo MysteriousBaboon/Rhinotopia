@@ -85,7 +85,6 @@ def charactercheck(character):
             character.isAlive = False
             character.respawnDate = datetime.now(timezone.utc) + timedelta(hours=2)
         while character.hp < character.max_Hp and minute_elapsed >= 30:
-            print("AHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHH")
             character.hp += 1
             minute_elapsed -= 30
         if character.hp == character.max_Hp:
@@ -111,7 +110,7 @@ def levelup(character, xp):  # Check if the character has enough xp and if it do
         character.level += 1
         character.experience -= character.experience_needed
         character.experience_needed = character.experience_needed + 10
-        character.available_point += 5  # Change the value to add more point per level
+        character.available_point += 3  # Change the value to add more point per level
 
 
 def evolve(character):
