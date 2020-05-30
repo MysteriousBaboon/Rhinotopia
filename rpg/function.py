@@ -118,64 +118,162 @@ def evolve(character):
 
     if character.specie == 'Spider':
         if character.evolution_level == 1:
-            character.race = 'Little Spider'
+            character.race = 'Patu Diga'
+            character.agility += 2
+            character.intelligence += 1
+
         elif character.evolution_level == 2:
-            character.race = 'Medium Spider'
+            character.race = 'Ricinulei'
+            character.strength += 1
+            character.agility += 2
+            character.stamina += 2
+            character.intelligence += 1
+
         elif character.evolution_level == 3:
-            character.race = 'Big Spider'
+            character.race = 'Solifugae'
+            character.agility += 3
+            character.intelligence += 2
+            character.strength += 2
+            character.stamina += 3
+
         elif character.evolution_level == 4:
-            character.race = 'Gigantic Spider'
+            character.race = 'Goliath'
+            character.agility += 6
+            character.intelligence += 5
+            character.strength += 4
+            character.stamina += 4
 
     elif character.specie == 'Insectoid':
         if character.evolution_level == 1:
-            character.race = 'Little Scolopendre'
+            character.race = 'Scolopendra cingulata'
+            character.agility += 2
+            character.stamina += 1
+
         elif character.evolution_level == 2:
-            character.race = 'Medium Scolopendre'
+            character.race = 'Scolopendra'
+            character.agility += 2
+            character.strength += 2
+            character.stamina += 2
+
         elif character.evolution_level == 3:
-            character.race = 'Big Scolopendre'
+            character.race = 'Scolopendra Gigantea'
+            character.agility += 3
+            character.intelligence += 2
+            character.strength += 3
+            character.stamina += 2
+
         elif character.evolution_level == 4:
-            character.race = 'Gigantic Scolopendre'
+            character.race = 'Arthropluera'
+            character.agility += 6
+            character.intelligence += 4
+            character.strength += 4
+            character.stamina += 6
 
     elif character.specie == 'Rhinoceros':
         if character.evolution_level == 1:
-            character.race = 'Little Rhinoceros'
+            character.race = 'Menoceras'
+            character.stamina += 2
+            character.strength += 1
+
         elif character.evolution_level == 2:
-            character.stamina += 100000
-            character.race = 'Medium Rhinoceros'
+            character.race = 'Diceratherium'
+            character.stamina += 2
+            character.strength += 2
+            character.agility += 1
+            character.intelligence += 1
+
         elif character.evolution_level == 3:
-            character.race = 'Big Rhinoceros'
+            character.race = 'Chalicotheno'
+            character.stamina += 3
+            character.strength += 3
+            character.agility += 2
+            character.intelligence += 2
+
         elif character.evolution_level == 4:
-            character.race = 'Gigantic Rhinoceros'
+            character.race = 'Mastodonterino'
+            character.stamina += 6
+            character.strength += 6
+            character.agility += 4
+            character.intelligence += 4
 
     elif character.specie == 'Canine':
         if character.evolution_level == 1:
-            character.race = 'Little Canine'
+            character.race = 'Fox'
+            character.strength += 1
+            character.agility += 1
+            character.stamina += 1
+
         elif character.evolution_level == 2:
-            character.race = 'Medium Canine'
+            character.race = 'Jackal'
+            character.stamina += 2
+            character.strength += 2
+            character.agility += 2
+
         elif character.evolution_level == 3:
-            character.race = 'Big Canine'
+            character.race = 'Maned Wolf'
+            character.stamina += 2
+            character.strength += 3
+            character.agility += 3
+            character.intelligence += 2
+
         elif character.evolution_level == 4:
-            character.race = 'Gigantic Canine'
+            character.race = 'Canis Dirus'
+            character.stamina += 4
+            character.intelligence += 4
+            character.agility += 6
+            character.strength += 6
 
     elif character.specie == 'Feline':
         if character.evolution_level == 1:
-            character.race = 'Little Feline'
+            character.race = 'Prionailurus Rubiginosus'
+            character.strength += 1
+            character.agility += 2
+
         elif character.evolution_level == 2:
-            character.race = 'Medium Feline'
+            character.race = 'Lynx'
+            character.strength += 3
+            character.agility += 3
+
         elif character.evolution_level == 3:
-            character.race = 'Big Feline'
+            character.race = 'Panthera Pardus'
+            character.strength += 2
+            character.agility += 3
+            character.intelligence += 3
+            character.stamina += 2
+
         elif character.evolution_level == 4:
-            character.race = 'Gigantic Feline'
+            character.race = 'Panthera Tigris Altaica'
+            character.strength += 5
+            character.agility += 6
+            character.intelligence += 5
+            character.stamina += 3
 
     elif character.specie == 'Ursidae':
         if character.evolution_level == 1:
-            character.race = 'Little Ursidae'
+            character.race = 'Spectacled'
+            character.stamina += 1
+            character.strength += 2
+
         elif character.evolution_level == 2:
-            character.race = 'Medium Ursidae'
+            character.race = 'Sloth'
+            character.stamina += 2
+            character.strength += 2
+            character.intelligence += 1
+            character.agility += 1
+
         elif character.evolution_level == 3:
-            character.race = 'Big Ursidae'
+            character.race = 'Giant'
+            character.stamina += 3
+            character.strength += 3
+            character.intelligence += 2
+            character.agility += 2
+
         elif character.evolution_level == 4:
-            character.race = 'Gigantic Ursidae'
+            character.race = 'Kodiak'
+            character.stamina += 6
+            character.strength += 6
+            character.intelligence += 4
+            character.agility += 4
 
     character.can_Evolve = False
     character.save()

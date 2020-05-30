@@ -65,6 +65,20 @@ float:left;
   box-sizing: border-box;
 }
 
+.character_detail_parent
+{
+  background: mediumpurple;
+  padding: 1rem
+}
+
+.character_detail_child
+{
+  display: inline-block;
+
+  border: 1px solid indigo;
+  padding: 1rem
+}
+
 .charactercreation label{display:block;}
 .charactercreation textarea{ display:block;}
 
@@ -77,10 +91,7 @@ float:left;
 
 .main_character_detail form
 {
-float-right;
-float-top;
-     text-align: right;
-     text-align: top;
+
 background-color: purple;
 }
 .name_character

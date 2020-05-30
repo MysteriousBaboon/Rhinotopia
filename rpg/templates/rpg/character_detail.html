@@ -13,16 +13,24 @@
     <h2> Description </h2>
     <p>{{ character.description }}</p>
     <h2>Characteristics</h2>
-    <p>Species : {{character.specie}}</p>
-    <p> Race : {{character.race}}</p>
-    <p> Sex : {{character.sex}}</p>
 
-    {% if character.can_Evolve %}
+    <div class="character_detail_parent">
+    <div class="character_detail_child">
+
+    <p>Species : {{character.specie}}</p>             </div>
+      {% if character.can_Evolve %}
+    <div class="character_detail_child">
     <form action="" method="post">
                 {% csrf_token %}
             <label> Evolve</label><input type="image" src="/static/rpg/plus_button.png" name="evolve" width="40" height="40"><br>
     </form>
     {% endif %}
+        </div>
+</div>
+    <p> Race : {{character.race}}</p>
+    <p> Sex : {{character.sex}}</p>
+
+
 </div>
 
 <div class="statut_character">
