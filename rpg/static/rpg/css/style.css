@@ -4,6 +4,7 @@ body
     background-attachment: fixed;
     background-repeat: no-repeat;
     background-size: cover;
+    font-size: 20px;
 }
 
 
@@ -65,19 +66,7 @@ float:left;
   box-sizing: border-box;
 }
 
-.character_detail_parent
-{
-  background: mediumpurple;
-  padding: 1rem
-}
 
-.character_detail_child
-{
-  display: inline-block;
-
-  border: 1px solid indigo;
-  padding: 1rem
-}
 
 .charactercreation label{display:block;}
 .charactercreation textarea{ display:block;}
@@ -105,6 +94,15 @@ background-color: purple;
   padding-left: 50px;
 }
 
+.character_detail_parent
+{
+}
+
+.character_detail_child
+{
+  display: inline-block;
+
+}
 .statut_character
 {
   padding-top: 40px;
@@ -149,6 +147,14 @@ background-color: purple;
         padding-left: 10px;
         padding-top: 250px;
 }
+
+.tutorial
+{
+    padding-left: 10px;
+    padding-top: 250px;
+    font-size: 22px;
+}
+
 
 /*  Mission Detail*/
 .mission_detail

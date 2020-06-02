@@ -12,6 +12,6 @@ class CharacterForm(forms.ModelForm):
 
 
         }
-        fields = ('name', 'sex', 'specie', 'description')
+        fields = ('name', 'sex', 'species', 'description')
 
 

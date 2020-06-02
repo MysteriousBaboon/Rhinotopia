@@ -17,7 +17,7 @@
     <div class="character_detail_parent">
     <div class="character_detail_child">
 
-    <p>Species : {{character.specie}}</p>             </div>
+    <p>Species : {{character.species}}</p>             </div>
       {% if character.can_Evolve %}
     <div class="character_detail_child">
     <form action="" method="post">
@@ -26,14 +26,16 @@
     </form>
     {% endif %}
         </div>
+            <p> Race : {{character.race}}</p>
+
 </div>
-    <p> Race : {{character.race}}</p>
-    <p> Sex : {{character.sex}}</p>
+
 
 
 </div>
 
 <div class="statut_character">
+    <p> Sex : {{character.sex}}</p>
     <h2>Status</h2>
     <p>Is Alive : {{character.isAlive}}</p>
     {% if not character.isAlive %}
@@ -52,23 +54,28 @@
     <p>Health : {{character.hp}} / {{character.max_Hp}}</p>
     <p> Level {{character.level}}</p>
     <p> Experience : {{ character.experience}} / {{character.experience_needed}} XP</p>
-    <p> Strength : {{character.strength}} / Intelligence : {{character.intelligence}} / Agility : {{character.agility}} / Stamina : {{character.stamina}}</p>
     <p> Point available: {{point_available}} </p>
-</div>
+
 
     {% if point_available > 0  %}
     <form action="" method="post">
         {% csrf_token %}
 
-        <label> Strength</label><input type="image" src="/static/rpg/plus_button.png" name="strength" width="40" height="40"><br>
-        <label> Intelligence</label><input type="image" src="/static/rpg/plus_button.png" name="intelligence" width="40" height="40"><br>
-        <label> Agility</label><input type="image" src="/static/rpg/plus_button.png" name="agility" width="40" height="40"><br>
-        <label> Stamina</label><input type="image" src="/static/rpg/plus_button.png" name="stamina" width="40" height="40"><br>
+        <label> Strength : {{character.strength}}</label><input type="image" src="/static/rpg/plus_button.png" name="strength" width="40" height="40"><br>
+        <label> Intelligence : {{character.intelligence}}</label><input type="image" src="/static/rpg/plus_button.png" name="intelligence" width="40" height="40"><br>
+        <label> Agility : {{character.agility}}</label><input type="image" src="/static/rpg/plus_button.png" name="agility" width="40" height="40"><br>
+        <label> Stamina : {{character.stamina}}</label><input type="image" src="/static/rpg/plus_button.png" name="stamina" width="40" height="40"><br>
     </form>
+    {% else %}
+        <label> Strength : {{character.strength}}</label>
+        <label> Intelligence : {{character.intelligence}}</label>
+        <label> Agility : {{character.agility}}</label>
+        <label> Stamina : {{character.stamina}}</label>
     {% endif %}
 
     {% else %}
     <p>No access</p>
+    </div>
 
 </div>
 {% endif %}

@@ -48,7 +48,7 @@ class Character(models.Model):
     level = models.IntegerField(default=0)
 
     # Statistics
-    available_point = models.IntegerField(default=5)
+    available_point = models.IntegerField(default=3)
 
     strength = models.IntegerField(default=0)
     intelligence = models.IntegerField(default=0)
@@ -66,7 +66,7 @@ class Character(models.Model):
         FELINE = 'Feline',
         URSIDAE = 'Ursidae',
 
-    specie = models.CharField(max_length=10,
+    species = models.CharField(max_length=10,
                               choices=Species.choices,
                               default=Species.RHINOCEROS, )
 
