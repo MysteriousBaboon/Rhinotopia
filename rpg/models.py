@@ -66,7 +66,7 @@ class Character(models.Model):
         FELINE = 'Feline',
         URSIDAE = 'Ursidae',
 
-    species = models.CharField(max_length=10,
+    species = models.CharField(max_length=25,
                               choices=Species.choices,
                               default=Species.RHINOCEROS, )
 
