@@ -71,7 +71,7 @@ class Character(models.Model):
                               default=Species.RHINOCEROS, )
 
     # Race of the character
-    race = models.CharField(max_length=20, default='Unspecified')
+    race = models.CharField(max_length=25, default='Unspecified')
     evolution_level = models.IntegerField(default=0)
     can_Evolve = models.BooleanField(default=True)
 
