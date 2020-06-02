@@ -116,7 +116,7 @@ def levelup(character, xp):  # Check if the character has enough xp and if it do
 def evolve(character):
     character.evolution_level += 1
 
-    if character.specie == 'Spider':
+    if character.species == 'Spider':
         if character.evolution_level == 1:
             character.race = 'Patu Diga'
             character.agility += 2
@@ -143,7 +143,7 @@ def evolve(character):
             character.strength += 4
             character.stamina += 4
 
-    elif character.specie == 'Insectoid':
+    elif character.species == 'Insectoid':
         if character.evolution_level == 1:
             character.race = 'Scolopendra cingulata'
             character.agility += 2
@@ -169,7 +169,7 @@ def evolve(character):
             character.strength += 4
             character.stamina += 6
 
-    elif character.specie == 'Rhinoceros':
+    elif character.species == 'Rhinoceros':
         if character.evolution_level == 1:
             character.race = 'Menoceras'
             character.stamina += 2
@@ -196,7 +196,7 @@ def evolve(character):
             character.agility += 4
             character.intelligence += 4
 
-    elif character.specie == 'Canine':
+    elif character.species == 'Canine':
         if character.evolution_level == 1:
             character.race = 'Fox'
             character.strength += 1
@@ -223,7 +223,7 @@ def evolve(character):
             character.agility += 6
             character.strength += 6
 
-    elif character.specie == 'Feline':
+    elif character.species == 'Feline':
         if character.evolution_level == 1:
             character.race = 'Prionailurus Rubiginosus'
             character.strength += 1
@@ -248,7 +248,7 @@ def evolve(character):
             character.intelligence += 5
             character.stamina += 3
 
-    elif character.specie == 'Ursidae':
+    elif character.species == 'Ursidae':
         if character.evolution_level == 1:
             character.race = 'Spectacled'
             character.stamina += 1
